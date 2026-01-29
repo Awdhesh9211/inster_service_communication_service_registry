@@ -13,14 +13,13 @@ public class RestTemplateClient {
     private  String provide_base_uri;
 
 
-//    private final RestTemplate restTemplate;
-//
-//    public RestTemplateClient(RestTemplate restTemplate) {
-//        this.restTemplate = restTemplate;
-//    }
+    private final RestTemplate restTemplate;
+
+    public RestTemplateClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public String getInstance(){
-        RestTemplate restTemplate=new RestTemplate();
         return restTemplate.getForObject(provide_base_uri+"/provider/instance/info",String.class);
     }
 }

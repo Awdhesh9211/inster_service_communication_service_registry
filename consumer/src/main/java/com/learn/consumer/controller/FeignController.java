@@ -1,8 +1,9 @@
 package com.learn.consumer.controller;
 
 
-import com.learn.consumer.client.FeignClientInterface;
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+import com.learn.consumer.client.ProviderFeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,12 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/consumer/feign")
 public class FeignController {
 
-    @Autowired
-    private FeignClientInterface feignClientInterface;
+    private final ProviderFeignClient providerFeignClient;
+
+    public FeignController(ProviderFeignClient providerFeignClient) {
+        this.providerFeignClient = providerFeignClient;
+    }
 
     @GetMapping("/instance")
-    public String getInstance(){
-        return feignClientInterface.getInstanceInfo();
+    public String getInstance() {
+        return providerFeignClient.getInstanceInfo();
     }
 
 

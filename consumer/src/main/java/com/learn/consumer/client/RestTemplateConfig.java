@@ -1,4 +1,4 @@
-package com.learn.consumer.config;
+package com.learn.consumer.client;
 
 
 import org.springframework.context.annotation.Bean;
