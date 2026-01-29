@@ -1,7 +1,6 @@
-package com.learn.consumer.controller;
+package com.learn.consumer.resttemplate;
 
 
-import com.learn.consumer.service.RestTemplateClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.learn.consumer.client;
+package com.learn.consumer.feignclient;
 
 
 import org.springframework.cloud.openfeign.FeignClient;

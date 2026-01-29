@@ -1,9 +1,8 @@
-package com.learn.consumer.controller;
+package com.learn.consumer.feignclient;
 
 
 
 
-import com.learn.consumer.client.ProviderFeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

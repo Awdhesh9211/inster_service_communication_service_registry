@@ -1,4 +1,4 @@
-package com.learn.consumer.client;
+package com.learn.consumer.resttemplate;
 
 
 import org.springframework.context.annotation.Bean;
