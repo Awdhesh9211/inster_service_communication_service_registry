@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateConfig {
 
     @Bean
+//    @LoadBalanced  if using eureka
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }

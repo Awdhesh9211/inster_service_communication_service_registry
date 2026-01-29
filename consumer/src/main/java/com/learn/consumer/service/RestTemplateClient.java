@@ -12,10 +12,15 @@ public class RestTemplateClient {
     @Value("${provider.base.url}")
     private  String provide_base_uri;
 
-    @Autowired
-    private RestTemplate restTemplate;
+
+//    private final RestTemplate restTemplate;
+//
+//    public RestTemplateClient(RestTemplate restTemplate) {
+//        this.restTemplate = restTemplate;
+//    }
 
     public String getInstance(){
+        RestTemplate restTemplate=new RestTemplate();
         return restTemplate.getForObject(provide_base_uri+"/provider/instance/info",String.class);
     }
 }
