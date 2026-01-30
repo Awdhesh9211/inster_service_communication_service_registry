@@ -1,26 +1,46 @@
 package com.learn.consumer.restclient;
 
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Service
-@RefreshScope
 public class RestClientService {
 
+    private final DiscoveryClient discoveryClient;
     private final RestClient restClient;
-//    @Value("${provider.base.url}")
-//    private  String providerBaseUrl;
+
+    // round-robin counter
+    private final AtomicInteger position = new AtomicInteger(0);
 
     public RestClientService(
-            RestClient restClient) {
-        this.restClient = restClient;
+            DiscoveryClient discoveryClient,
+            RestClient.Builder restClientBuilder) {
+
+        this.discoveryClient = discoveryClient;
+        this.restClient = restClientBuilder.build();
     }
 
     public String getInstance() {
-        return restClient
-                .get()
-                .uri("http://localhost:8082/provider/instance/info")
+
+        List<ServiceInstance> instances =
+                discoveryClient.getInstances("provider");
+
+        if (instances == null || instances.isEmpty()) {
+            throw new IllegalStateException("Provider service is not available");
+        }
+
+        // ---- LOAD BALANCING HERE ----
+        int index = Math.abs(position.getAndIncrement() % instances.size());
+        ServiceInstance instance = instances.get(index);
+        // ----------------------------
+
+        return restClient.get()
+                .uri(instance.getUri() + "/provider/instance/info")
                 .retrieve()
                 .body(String.class);
     }
